@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "android-alcodroid-backup-parser"
+version = "0.1.0"
+description = ""
+authors = ["Thomas Riccardi <riccardi.thomas@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+caterpillar = "^0.15.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
