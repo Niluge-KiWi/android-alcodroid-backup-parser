@@ -7,7 +7,11 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-caterpillar = "^0.15.10"
+click = "^8.1.7"
+rich-click = "^1.7.4"
+rich = "^13.7.1"
+setuptools = "^69.2.0"
+caterpillar = {git = "https://github.com/MatrixEditor/caterpillar.git", extras = ["all"]}
 
 
 [build-system]
