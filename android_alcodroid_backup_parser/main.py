@@ -10,6 +10,33 @@ install()
 _package_name = b"org.M.alcodroid"
 
 
+import types
+
+
+from typing import Any
+import datetime
+
+from caterpillar.abc import _ContextLike
+
+# indirect types
+class DateField(FormatField):
+    """int64 storing millisecond timestamp"""
+    def __init__(self) -> None:
+        # int64 initialization
+        super(DateField, self).__init__('q', datetime.datetime)
+
+    def unpack_single(self, context: _ContextLike) -> Any:
+        value = super(DateField, self).unpack_single(context)
+        if value is None or 0:
+            # 0 is when date not set
+            return None
+
+        return datetime.datetime.fromtimestamp(value/1000)
+
+date = DateField()
+
+#TODO duration ms type too?
+
 
 @struct(order=BigEndian)
 class Settings:
@@ -20,7 +47,7 @@ class Settings:
     bloodAlcoholUnit: Prefixed(uint16, 'utf8')
     pureAlcoholUnit: Prefixed(uint16, 'utf8')
     alcoholPerTimeUnit: Prefixed(uint16, 'utf8')
-    _unknown_f9082f: boolean # no idea yet what it is
+    show_body_settings: boolean # probably
     disclaimerAccepted: boolean
     homeTimeZone: Prefixed(uint16, 'utf8') #.getID());
     sexMale: boolean
@@ -47,21 +74,21 @@ class JournalDrinkEntry:
     # TODO support other versions?
     version: Const(1002, int32)
     name: Prefixed(uint16, 'utf8')
-    _unknown_possibly_comment: Prefixed(uint16, 'utf8')
+    comment: Prefixed(uint16, 'utf8') # probably, always empty
     volume: float64
     alcohol_percentage: float64
-    _unknown_some_date_maybe_start_date: int64 #.getTime());
+    start_date: date
     cost: float64
-    _unknown_bool_maybe_set_end_date_equal_to_start_date: boolean
-    _unknown_some_date_maybe_end_date: int64
-    _unknown_f9452k: boolean
-    _unknown_f9465z: int64
+    input_time_advanced: boolean
+    end_date: date
+    show_finish_drink_button_in_main_screen: boolean
+    absorption_lag_time: int64 # ms
 
 @struct(order=BigEndian)
 class JournalDrinks:
     # TODO support other versions?
     version: Const(1002, int32)
-    creation_date: int64
+    creation_date: date
     size: int32
     entries: JournalDrinkEntry[this.size]
 
@@ -76,7 +103,7 @@ class AllDataAlcoDroidBackup:
     # java DataOutput.writeInt
     version: Const(1000, int32)
     # java DataOutput.writeLong
-    date: int64
+    date: date
     # java DataOutput.writeUTF: 2 bytes length, then java modified UTF-8
     package_name_lenght: Const(len(_package_name), uint16) # b"\x00\x0f"
     package_name: _package_name # ~magic string
@@ -93,7 +120,8 @@ class AllDataAlcoDroidBackup:
 def parse(input_path):
     """Parse AlcoDroid all_data.backup file"""
 
-    print(unpack_file(AllDataAlcoDroidBackup, input_path))
+    all_data = unpack_file(AllDataAlcoDroidBackup, input_path)
+    print(all_data)
 
 if __name__ == '__main__':
     parse()
