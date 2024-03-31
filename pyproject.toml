@@ -1,7 +1,8 @@
 [tool.poetry]
 name = "android-alcodroid-backup-parser"
 version = "0.1.0"
-description = ""
+description = "Parser for backup files for AlcoDroid Alcohol Tracker (org.M.alcodroid) Android App."
+license = "GPL-3.0-or-later"
 authors = ["Thomas Riccardi <riccardi.thomas@gmail.com>"]
 readme = "README.md"
 
