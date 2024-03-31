@@ -20,9 +20,15 @@ eval "$(pyenv init -)" # in ~/.bashrc
 yay -S poetry
 ```
 
-Run:
+## Run
+show:
 ```shell
-poetry run python android_alcodroid_backup_parser/main.py /path/to/all_data.backup
+poetry run python android_alcodroid_backup_parser/main.py show /path/to/all_data.backup
+```
+
+extract journal entries as jsonlines format:
+```
+poetry run python android_alcodroid_backup_parser/main.py extract-entries /path/to/all_data.backup  /path/to/all_data.backup.entries.jsonl
 ```
 
 Remarks:

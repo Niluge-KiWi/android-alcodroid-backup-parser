@@ -1,6 +1,8 @@
 from caterpillar.shortcuts import struct, BigEndian, this, unpack_file
 from caterpillar.fields import *
 
+import jsonlines
+
 from rich import print
 import rich_click as click
 
@@ -33,7 +35,9 @@ class DateField(FormatField):
 
         return datetime.datetime.fromtimestamp(value/1000)
 
-date = DateField()
+# TODO use DateField for fancy print
+#date = DateField()
+date = int64 # timestamp: ms since epoch
 
 #TODO duration ms type too?
 
@@ -115,13 +119,36 @@ class AllDataAlcoDroidBackup:
     drinks_presets: DrinksPresets
 
 
-@click.command()
-@click.argument('input_path', type=click.Path(exists=True))
 def parse(input_path):
     """Parse AlcoDroid all_data.backup file"""
+    return unpack_file(AllDataAlcoDroidBackup, input_path)
 
-    all_data = unpack_file(AllDataAlcoDroidBackup, input_path)
+
+@click.group()
+def cli():
+    pass
+
+@cli.command()
+@click.argument('input_path', type=click.Path(exists=True))
+def show(input_path):
+    """Parse and show AlcoDroid all_data.backup file"""
+    all_data = parse(input_path)
+
     print(all_data)
 
+@cli.command()
+@click.argument('input_path', type=click.Path(exists=True))
+@click.argument('output_path', type=click.Path())
+def extract_entries(input_path, output_path):
+    """Parse AlcoDroid all_data.backup file an extract its journal entries into output jsonlines file"""
+    all_data = parse(input_path)
+
+    with jsonlines.open(output_path, mode='w') as writer:
+        for entry in all_data.journal_drinks.entries:
+            writer.write(entry.__dict__)
+
+    click.echo(f"Wrote jsonl journal entries to {output_path}")
+
+
 if __name__ == '__main__':
-    parse()
+    cli()

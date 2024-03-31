@@ -13,6 +13,7 @@ rich-click = "^1.7.4"
 rich = "^13.7.1"
 setuptools = "^69.2.0"
 caterpillar = {git = "https://github.com/MatrixEditor/caterpillar.git", extras = ["all"]}
+jsonlines = "^4.0.0"
 
 
 [build-system]
