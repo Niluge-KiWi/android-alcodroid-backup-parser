@@ -49,7 +49,7 @@ class Settings:
     alcoholPerTimeUnit: Prefixed(uint16, 'utf8')
     show_body_settings: boolean # probably
     disclaimerAccepted: boolean
-    homeTimeZone: Prefixed(uint16, 'utf8') #.getID());
+    homeTimeZone: Prefixed(uint16, 'utf8') # TimeZone.getID()); // e.g. "Europe/Paris"
     sexMale: boolean
     bodyMassKg: float64
     consumptionSetpoint: float64
