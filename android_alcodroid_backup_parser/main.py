@@ -1,6 +1,7 @@
 from caterpillar.shortcuts import struct, BigEndian, this, unpack_file
 from caterpillar.fields import *
 
+import json
 import jsonlines
 
 from rich import print
@@ -139,15 +140,23 @@ def show(input_path):
 @cli.command()
 @click.argument('input_path', type=click.Path(exists=True))
 @click.argument('output_path', type=click.Path())
-def extract_entries(input_path, output_path):
+@click.option('-f', '--format',
+              default='jsonl',
+              type=click.Choice(['json', 'jsonl']),
+              help='output format')
+def extract_entries(input_path, output_path, format):
     """Parse AlcoDroid all_data.backup file an extract its journal entries into output jsonlines file"""
     all_data = parse(input_path)
 
-    with jsonlines.open(output_path, mode='w') as writer:
-        for entry in all_data.journal_drinks.entries:
-            writer.write(entry.__dict__)
+    if format == 'jsonl':
+        with jsonlines.open(output_path, mode='w') as writer:
+            for entry in all_data.journal_drinks.entries:
+                writer.write(entry.__dict__)
+    elif format == 'json':
+        with open(output_path, mode='w') as f:
+            json.dump([entry.__dict__ for entry in all_data.journal_drinks.entries], f)
 
-    click.echo(f"Wrote jsonl journal entries to {output_path}")
+    click.echo(f"Wrote {format} journal entries to {output_path}")
 
 
 if __name__ == '__main__':
