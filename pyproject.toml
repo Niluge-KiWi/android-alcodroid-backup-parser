@@ -1,21 +1,23 @@
-[tool.poetry]
+[project]
 name = "android-alcodroid-backup-parser"
 version = "0.1.0"
 description = "Parser for backup files for AlcoDroid Alcohol Tracker (org.M.alcodroid) Android App."
-license = "GPL-3.0-or-later"
-authors = ["Thomas Riccardi <riccardi.thomas@gmail.com>"]
+authors = [{ name = "Thomas Riccardi", email = "riccardi.thomas@gmail.com" }]
+requires-python = "~=3.12"
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.12"
-click = "^8.1.7"
-rich-click = "^1.7.4"
-rich = "^13.7.1"
-setuptools = "^69.2.0"
-caterpillar = {git = "https://github.com/MatrixEditor/caterpillar.git", extras = ["all"]}
-jsonlines = "^4.0.0"
-
+license = "GPL-3.0-or-later"
+dependencies = [
+    "click>=8.1.7,<9",
+    "rich-click>=1.7.4,<2",
+    "rich>=13.7.1,<14",
+    "setuptools>=69.2.0,<70",
+    "caterpillar[all]",
+    "jsonlines>=4.0.0,<5",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv.sources]
+caterpillar = { git = "https://github.com/MatrixEditor/caterpillar.git" }

@@ -7,34 +7,22 @@ Parser for backup files for [AlcoDroid Alcohol Tracker](https://play.google.com/
 
 (from Archlinux)
 
-Depedencies:
-(`caterpillar` requires python 3.12+, I install it with `pyenv`)
+Dependencies:
+(`caterpillar` requires python 3.12+, it's handled by `uv` transparently)
 ```shell
-yay -S pyenv
-pyenv version
-pyenv install --list
-pyenv install 3.12
-
-eval "$(pyenv init -)" # in ~/.bashrc
-
-yay -S poetry
+yay -S uv
 ```
 
 ## Run
 show:
 ```shell
-poetry run python android_alcodroid_backup_parser/main.py show /path/to/all_data.backup
+uv run python android_alcodroid_backup_parser/main.py show /path/to/all_data.backup
 ```
 
 extract journal entries as jsonlines format:
 ```
-poetry run python android_alcodroid_backup_parser/main.py extract-entries /path/to/all_data.backup  /path/to/all_data.backup.entries.jsonl
+uv run python android_alcodroid_backup_parser/main.py extract-entries /path/to/all_data.backup  /path/to/all_data.backup.entries.jsonl
 ```
-
-Remarks:
-- `caterpillar` dependecy is still beta and installed via git HEAD; I used https://github.com/MatrixEditor/caterpillar/commit/c4bf1d23050091ebff5632f17024fbed3a8bcf0b version.
-
-
 
 # Development
 ## Reverse Engineering
