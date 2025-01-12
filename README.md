@@ -44,3 +44,6 @@ Remarks:
 Remarks:
 - my `DateField` class may not be the recommended way to augment Fields class, I didn't find clear doc about extensions: let me know if you know better!
 - it's optimized for development and exploration, notably `rich` `print` is really slow, but helpful when iterating!
+
+## TODO
+- proper cli packaging for easier uvx usage
