@@ -16,12 +16,12 @@ yay -S uv
 ## Run
 show:
 ```shell
-uv run python android_alcodroid_backup_parser/main.py show /path/to/all_data.backup
+uv run alcodroid-backup-parser show /path/to/all_data.backup
 ```
 
 extract journal entries as jsonlines format:
 ```
-uv run python android_alcodroid_backup_parser/main.py extract-entries /path/to/all_data.backup  /path/to/all_data.backup.entries.jsonl
+uv run alcodroid-backup-parser extract-entries /path/to/all_data.backup  /path/to/all_data.backup.entries.jsonl
 ```
 
 # Development
@@ -44,6 +44,3 @@ Remarks:
 Remarks:
 - my `DateField` class may not be the recommended way to augment Fields class, I didn't find clear doc about extensions: let me know if you know better!
 - it's optimized for development and exploration, notably `rich` `print` is really slow, but helpful when iterating!
-
-## TODO
-- proper cli packaging for easier uvx usage

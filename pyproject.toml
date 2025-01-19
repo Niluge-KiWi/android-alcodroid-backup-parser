@@ -15,6 +15,9 @@ dependencies = [
     "jsonlines>=4.0.0,<5",
 ]
 
+[project.scripts]
+alcodroid-backup-parser = "android_alcodroid_backup_parser.main:cli"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
