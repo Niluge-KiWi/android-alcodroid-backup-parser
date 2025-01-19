@@ -16,7 +16,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "caterpillar", extras = ["all"], git = "https://github.com/MatrixEditor/caterpillar.git?tag=v2.2.0" },
+    { name = "caterpillar", extras = ["all"], git = "https://github.com/MatrixEditor/caterpillar?tag=v2.4.1" },
     { name = "click", specifier = ">=8.1.7,<9" },
     { name = "jsonlines", specifier = ">=4.0.0,<5" },
     { name = "rich", specifier = ">=13.7.1,<14" },
@@ -35,8 +35,8 @@ wheels = [
 
 [[package]]
 name = "caterpillar"
-version = "2.2.0"
-source = { git = "https://github.com/MatrixEditor/caterpillar.git?tag=v2.2.0#7d129ee69d7ffb98ab14cbfac5bed4a462e42261" }
+version = "2.4.1"
+source = { git = "https://github.com/MatrixEditor/caterpillar?tag=v2.4.1#f901a4717b12502d5acf6d8345a9d9792df4c258" }
 
 [package.optional-dependencies]
 all = [

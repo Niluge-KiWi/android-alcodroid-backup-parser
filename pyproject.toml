@@ -20,4 +20,4 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.uv.sources]
-caterpillar = { git = "https://github.com/MatrixEditor/caterpillar.git", tag = "v2.2.0" }
+caterpillar = { git = "https://github.com/MatrixEditor/caterpillar", tag = "v2.4.1" }

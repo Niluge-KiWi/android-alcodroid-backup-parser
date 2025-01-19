@@ -22,7 +22,7 @@ import datetime
 from caterpillar.abc import _ContextLike
 
 # indirect types
-class DateField(FormatField):
+class DateField(PyStructFormattedField):
     """int64 storing millisecond timestamp"""
     def __init__(self) -> None:
         # int64 initialization
@@ -47,21 +47,21 @@ date = int64 # timestamp: ms since epoch
 class Settings:
     # TODO support other versions?
     version: Const(1003, int32)
-    volumeUnit: Prefixed(uint16, 'utf8')
-    bodyMassUnit: Prefixed(uint16, 'utf8')
-    bloodAlcoholUnit: Prefixed(uint16, 'utf8')
-    pureAlcoholUnit: Prefixed(uint16, 'utf8')
-    alcoholPerTimeUnit: Prefixed(uint16, 'utf8')
+    volumeUnit: Prefixed(uint16, encoding='utf8')
+    bodyMassUnit: Prefixed(uint16, encoding='utf8')
+    bloodAlcoholUnit: Prefixed(uint16, encoding='utf8')
+    pureAlcoholUnit: Prefixed(uint16, encoding='utf8')
+    alcoholPerTimeUnit: Prefixed(uint16, encoding='utf8')
     show_body_settings: boolean # probably
     disclaimerAccepted: boolean
-    homeTimeZone: Prefixed(uint16, 'utf8') # TimeZone.getID()); // e.g. "Europe/Paris"
+    homeTimeZone: Prefixed(uint16, encoding='utf8') # TimeZone.getID()); // e.g. "Europe/Paris"
     sexMale: boolean
     bodyMassKg: float64
     consumptionSetpoint: float64
     useConsumptionSetpoint: boolean
     legalLimitPermille: float64
     dayStartMs: int64
-    permanentBackupFrequency: Prefixed(uint16, 'utf8')
+    permanentBackupFrequency: Prefixed(uint16, encoding='utf8')
     bacChartGradient: boolean
     bacChartGridLines: boolean
     bacChartLegalLine: boolean
@@ -70,7 +70,7 @@ class Settings:
     trackCosts: boolean
     animateTexts: boolean
     bacTextGrow: boolean
-    currencySymbol: Prefixed(uint16, 'utf8')
+    currencySymbol: Prefixed(uint16, encoding='utf8')
     metabolismRatePointPerCent: float64
 
 
@@ -78,8 +78,8 @@ class Settings:
 class JournalDrinkEntry:
     # TODO support other versions?
     version: Const(1002, int32)
-    name: Prefixed(uint16, 'utf8')
-    comment: Prefixed(uint16, 'utf8') # probably, always empty
+    name: Prefixed(uint16, encoding='utf8')
+    comment: Prefixed(uint16, encoding='utf8') # probably, always empty
     volume: float64
     alcohol_percentage: float64
     start_date: date
@@ -114,7 +114,7 @@ class AllDataAlcoDroidBackup:
     package_name: _package_name # ~magic string
     # java DataOutput.writeUTF: 2 bytes length, then java modified UTF-8
     # TODO parse java modified UTF-8? https://docs.oracle.com/javase/8/docs/api/java/io/DataInput.html#modified-utf-8
-    application_name: Prefixed(uint16, 'utf8')
+    application_name: Prefixed(uint16, encoding='utf8')
     settings: Settings
     journal_drinks: JournalDrinks
     drinks_presets: DrinksPresets
